@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.vercel
+.output
+.vinxi
+.cache
+.data
+.wrangler
+.env
+.env.*
+!.env.example
+dev-dist
+*.tsbuildinfo
+imports.app.d.ts
+.specstory/

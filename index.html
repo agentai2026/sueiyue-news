@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="岁月实时新闻 - 聚合当下热点，把此刻收进时光里" />
+  <meta name="keywords" content="新闻,实时新闻,热点,岁月实时新闻" />
+  <meta name="author" content="岁月实时新闻" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:title" content="岁月实时新闻" />
+  <meta property="og:description" content="聚合当下热点，把此刻收进时光里" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://github.com/agentai2026/sueiyue-news" />
+  <meta property="og:image" content="/og-image.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="岁月实时新闻" />
+  <meta name="twitter:description" content="聚合当下热点，把此刻收进时光里" />
+  <meta name="twitter:image" content="/og-image.png" />
+
+  <meta name="theme-color" content="#FF4D2E" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "岁月实时新闻",
+      "url": "https://github.com/agentai2026/sueiyue-news",
+      "description": "聚合当下热点，把此刻收进时光里"
+    }
+  </script>
+
+  <script>
+    try {
+      const scheme = JSON.parse(localStorage.getItem("sy-color-scheme-v3") || '"light"')
+      if (scheme === "dark") document.documentElement.classList.add("dark")
+    } catch (_) {}
+    const query = new URLSearchParams(window.location.search)
+    if (query.has("login") && query.has("user") && query.has("jwt")) {
+      localStorage.setItem("user", query.get("user"))
+      localStorage.setItem("jwt", JSON.stringify(query.get("jwt")))
+      window.history.replaceState({}, document.title, window.location.pathname)
+    }
+  </script>
+  <title>岁月实时新闻</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>

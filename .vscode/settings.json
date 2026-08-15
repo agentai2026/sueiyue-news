@@ -1,0 +1,16 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.data": true,
+    "**/pnpm-lock.yaml": true,
+    "**/imports.app.d.ts": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.data": true,
+    "**/pnpm-lock.yaml": true
+  }
+}

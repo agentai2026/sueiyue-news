@@ -7,7 +7,7 @@ export function Footer() {
       <span className="flex items-center gap-2">
         <Link to="/about">关于</Link>
         <span>·</span>
-        <a href={`${Homepage}/blob/main/LICENSE`} target="_blank" rel="noreferrer">MIT</a>
+        <a href={`${Homepage}/blob/main/LICENSE`} target="_blank" rel="noreferrer">Apache-2.0</a>
         <span>·</span>
         <span>
           © 2026

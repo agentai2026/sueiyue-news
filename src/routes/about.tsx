@@ -79,7 +79,7 @@ function AboutPage() {
               </li>
               <li>
                 <span>开源协议</span>
-                <a href={`${Homepage}/blob/main/LICENSE`} target="_blank" rel="noreferrer">MIT</a>
+                <a href={`${Homepage}/blob/main/LICENSE`} target="_blank" rel="noreferrer">Apache-2.0</a>
               </li>
               <li>
                 <span>代码仓库</span>

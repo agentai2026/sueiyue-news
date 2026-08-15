@@ -4,7 +4,7 @@ import { getCacheTable } from "#/database/cache"
 import type { CacheInfo } from "#/types"
 
 const info = {
-  LICENCE: "MIT",
+  LICENCE: "Apache-2.0",
   Github: "https://github.com/agentai2026/sueiyue-news",
   Sponsorship: "If you rely on this service, sponsorship is welcome to help it run for the long term.",
 }

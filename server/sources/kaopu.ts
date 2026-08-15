@@ -2,6 +2,25 @@ import * as cheerio from "cheerio"
 import type { NewsItem } from "@shared/types"
 
 export default defineSource(async () => {
+  const jsonUrls = [
+    "https://kaopustorage.blob.core.windows.net/news-prod/news_list_hans_0.json",
+    "https://kaopucdn.azureedge.net/jsondata/news_list_beta_hans_0.json",
+  ]
+  for (const url of jsonUrls) {
+    try {
+      const res: any = await myFetch(url, { timeout: 6000, retry: 0 })
+      const list = Array.isArray(res) ? res : []
+      const news = list.filter((k: any) => k.title && k.link && ["财新", "公视"].every(h => k.publisher !== h)).map((k: any) => ({
+        id: k.link,
+        title: k.title,
+        pubDate: k.pub_date || k.pubDate,
+        extra: { hover: k.description, info: k.publisher },
+        url: k.link,
+      }))
+      if (news.length) return news
+    } catch {}
+  }
+
   const baseURL = "https://kaopu.news"
   const html = await myFetch<string>(baseURL, {
     responseType: "text" as any,

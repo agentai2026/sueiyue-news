@@ -86,12 +86,6 @@ body {
   backdrop-filter: blur(14px);
 }
 
-.sy-topbar-nav {
-  flex: 1;
-  justify-content: center;
-  min-width: 0;
-}
-
 .sy-brand {
   display: flex;
   align-items: center;
@@ -140,71 +134,34 @@ body {
   letter-spacing: 0.02em;
 }
 
-.sy-live {
+.sy-health {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  white-space: nowrap;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.08em;
 }
 
-.sy-live-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: sy-blink 1.4s ease-in-out infinite;
+@media (max-width: 720px) {
+  .sy-health {
+    padding: 0 8px;
+    gap: 6px;
+    font-size: 11px;
+  }
 }
 
-@keyframes sy-blink {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.45; transform: scale(0.85); }
+.sy-health-ok {
+  color: #1f8a4c;
 }
 
-.sy-nav {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.sy-nav a,
-.sy-nav button {
-  position: relative;
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  padding: 8px 12px;
-  font-size: 14px;
-  font-weight: 500;
-  border-radius: 10px;
-  transition: color 0.2s ease, background 0.2s ease;
-}
-
-.sy-nav a:hover,
-.sy-nav button:hover {
-  color: var(--ink);
-  background: color-mix(in srgb, var(--ink) 4%, transparent);
-}
-
-.sy-nav a.is-active {
-  color: var(--ink);
-  font-weight: 700;
-}
-
-.sy-nav a.is-active::after {
-  content: "";
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 4px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--accent);
+.sy-health-bad {
+  color: var(--accent);
 }
 
 .sy-actions {
@@ -279,6 +236,30 @@ body {
   background: var(--accent-soft);
 }
 
+.sy-about-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink-2);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.sy-about-link:hover,
+.sy-about-link.is-active {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+  background: var(--accent-soft);
+}
+
 .sy-login-btn {
   display: inline-flex;
   align-items: center;
@@ -300,21 +281,6 @@ body {
 .sy-login-btn:hover {
   filter: brightness(1.05);
   transform: translateY(-1px);
-}
-
-.sy-time {
-  display: none;
-  font-variant-numeric: tabular-nums;
-  font-size: 13px;
-  color: var(--muted);
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
-@media (min-width: 1100px) {
-  .sy-time {
-    display: inline-block;
-  }
 }
 
 .sy-card {
@@ -783,7 +749,6 @@ a[href], button, .btn, .cursor-pointer {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sy-live-dot,
   .sy-card,
   .sy-card:hover {
     animation: none;

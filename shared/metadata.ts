@@ -23,10 +23,10 @@ export const columns = {
     zh: "关注",
   },
   realtime: {
-    zh: "实时",
+    zh: "最新",
   },
   hottest: {
-    zh: "最热",
+    zh: "全部",
   },
   updated: {
     zh: "更新",
@@ -35,6 +35,7 @@ export const columns = {
 
 const updatedSourceIds = [..._updatedSourceIds] as SourceID[]
 
+export const navColumnIds = ["hottest", "realtime", "updated"] as const satisfies Partial<ColumnID>[]
 export const fixedColumnIds = ["focus", "hottest", "realtime", "updated"] as const satisfies Partial<ColumnID>[]
 export const hiddenColumns = Object.keys(columns).filter(id => !fixedColumnIds.includes(id as any)) as HiddenColumnID[]
 
@@ -55,7 +56,7 @@ export const metadata: Metadata = typeSafeObjectFromEntries(typeSafeObjectEntrie
     case "hottest":
       return [k, {
         name: v.zh,
-        sources: getSortedSourceIds("hottest"),
+        sources: typeSafeObjectEntries(sources).filter(([, s]) => !s.redirect).map(([id]) => id).sort((a, b) => a.localeCompare(b)),
       }]
     case "realtime":
       return [k, {

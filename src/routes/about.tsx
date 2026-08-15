@@ -60,11 +60,11 @@ function AboutPage() {
             <h2>我们做什么</h2>
             <p>
               岁月实时新闻把各平台热榜收进同一页，帮你快速看见今天正在发生的事。
-              登录后还能关注常用来源，并在需要时强制刷新最新内容。
+              可以直接关注常用站点，需要时再手动刷新。
             </p>
             <div className="sy-about-tags">
               <span>多源热榜</span>
-              <span>登录关注</span>
+              <span>关注来源</span>
               <span>一键官网</span>
               <span>实时刷新</span>
             </div>

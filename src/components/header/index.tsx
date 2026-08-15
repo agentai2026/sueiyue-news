@@ -1,24 +1,10 @@
 import { Link } from "@tanstack/react-router"
-import { useIsFetching } from "@tanstack/react-query"
-import type { SourceID } from "@shared/types"
-import { NavBar } from "../navbar"
+import { useIsFetching, useQueryClient } from "@tanstack/react-query"
+import type { SourceID, SourceResponse } from "@shared/types"
 import { Menu } from "./menu"
 import { IconArrowUp, IconRefresh } from "./icons"
 import { currentSourcesAtom, goToTopAtom } from "~/atoms"
-
-function useNowClock() {
-  const [now, setNow] = useState(() => new Date())
-  useEffect(() => {
-    const timer = window.setInterval(() => setNow(new Date()), 1000)
-    return () => window.clearInterval(timer)
-  }, [])
-  return now.toLocaleTimeString("zh-CN", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  })
-}
+import { cacheSources } from "~/utils/data"
 
 function GoTop() {
   const { ok, fn: goToTop } = useAtomValue(goToTopAtom)
@@ -59,9 +45,35 @@ function RefreshCountdown() {
   )
 }
 
-export function Header() {
-  const time = useNowClock()
+function SourceHealth() {
+  const currentSources = useAtomValue(currentSourcesAtom)
+  const queryClient = useQueryClient()
+  const [, tick] = useReducer(n => n + 1, 0)
 
+  useEffect(() => {
+    return queryClient.getQueryCache().subscribe(() => tick())
+  }, [queryClient])
+
+  let failed = 0
+  for (const id of currentSources) {
+    const state = queryClient.getQueryState<SourceResponse>(["source", id])
+    const data = state?.data ?? cacheSources.get(id)
+    const hasItems = !!data?.items?.length
+    // 只有真正请求失败且没有任何可展示内容，才算失效。
+    // 空列表、尚未加载、刷新失败但旧数据还在，都不算失效。
+    if (state?.status === "error" && !hasItems) failed += 1
+  }
+  const available = Math.max(0, currentSources.length - failed)
+
+  return (
+    <span className="sy-health" title={`当前栏目共 ${currentSources.length} 个站点`}>
+      <span className="sy-health-ok">可用站点 {available}</span>
+      <span className="sy-health-bad">失效站点 {failed}</span>
+    </span>
+  )
+}
+
+export function Header() {
   return (
     <div className="sy-topbar">
       <Link to="/" className="sy-brand">
@@ -74,19 +86,11 @@ export function Header() {
         </span>
       </Link>
 
-      <span className="sy-topbar-nav hidden lg:inline-flex">
-        <NavBar />
-      </span>
-
       <span className="sy-actions">
         <RefreshCountdown />
         <Refresh />
         <Menu />
-        <span className="sy-live hidden md:inline-flex">
-          <span className="sy-live-dot" />
-          LIVE
-        </span>
-        <span className="sy-time">{time}</span>
+        <SourceHealth />
         <GoTop />
       </span>
     </div>
